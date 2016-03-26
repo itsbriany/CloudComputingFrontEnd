@@ -1,6 +1,7 @@
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 import {Component} from 'angular2/core';
 import {MbrComponent} from "./mbr.component";
+import {HTTP_PROVIDERS} from "angular2/http";
 
 @RouteConfig([
     {
@@ -18,6 +19,7 @@ import {MbrComponent} from "./mbr.component";
     `,
     directives: [ROUTER_DIRECTIVES],
     providers: [
+        HTTP_PROVIDERS,
         ROUTER_PROVIDERS
     ]
 })

@@ -1,7 +1,6 @@
 import {Component} from 'angular2/core';
 import {MortgageApplication} from './models/mortgage-application';
 import {MbrService} from "./services/mbr-service";
-import {MBRInfo} from "./services/mbr-info";
 
 @Component({
     selector: 'mbr-form',
@@ -12,10 +11,11 @@ export class MbrComponent {
     active = true;
     submitted = false;
     loading = false;
-    model = new MortgageApplication('bob', 10000);
-    mbrInfo: MBRInfo;
+    currentMortgageApplication = new MortgageApplication();
+    errorMessage: string;
+    mortgageID: string;
 
-    constructor(private _mbrService: MbrService) { }
+    constructor(private mbrService: MbrService) { }
 
     reset() {
         this.submitted = false;
@@ -24,13 +24,33 @@ export class MbrComponent {
     onSubmit() {
         this.submitted = true;
         this.loading = true;
-        this._mbrService.getMbrInfoWithDelay().then(mbrInfo => this.receivedMbrInfo(mbrInfo));
+        this.postMortgageApplication();
+        // this.mbrService.getMbrMockInfoWithDelay().then(mbrInfo => this.receivedMbrInfo(mbrInfo));
     }
 
-    private receivedMbrInfo(mbrInfo: MBRInfo) {
+    private getMortgageApplications() {
+        this.mbrService.getMortgageApplications()
+            .subscribe(mortgageApplication => 
+                console.log(`Done, here are the mortgageApplications: ${JSON.stringify(mortgageApplication)}`,
+                error => this.onReceiveMortgageApplicationError(error)));
+    }
+
+    private postMortgageApplication() {
+        this.mbrService.addMortgageApplication(this.currentMortgageApplication)
+            .subscribe(
+                mortgageApplication => this.onReceiveMortgageApplication(mortgageApplication),
+                error => this.onReceiveMortgageApplicationError(error)
+            );
+    }
+
+    private onReceiveMortgageApplication(mortgageApplication: MortgageApplication) {
+        this.mortgageID = mortgageApplication.mortgageID;
         this.loading = false;
-        this.mbrInfo = mbrInfo;
-        console.log('Done!');
+    }
+
+    private onReceiveMortgageApplicationError(error: Error) {
+        this.errorMessage = error.message;
+        this.loading = false;
     }
 
 }

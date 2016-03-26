@@ -3,8 +3,14 @@
  */
 
 export class MortgageApplication {
-    constructor(
-        public name: string,
-        public value: number
-    ) { }
-}
+    applicantName: string;
+    mortgageValue: number;
+    houseID: number;
+    mortgageID: string;
+    
+    constructor() {
+        this.applicantName = '';
+        this.mortgageValue = 0;
+        this.houseID = 0;
+    }
+};
