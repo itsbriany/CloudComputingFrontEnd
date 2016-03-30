@@ -28,6 +28,14 @@ export class MbrComponent {
         // this.mbrService.getMbrMockInfoWithDelay().then(mbrInfo => this.receivedMbrInfo(mbrInfo));
     }
 
+    private getMortgageApplicantNames() {
+        this.mbrService.getMortgageApplicantNames()
+            .subscribe(
+                applicantNames => console.log(`Got ApplicantName: ${JSON.stringify(applicantNames)}`,
+                error => this.onReceiveMortgageApplicationError(error)
+                ));
+    }
+    
     private getMortgageApplications() {
         this.mbrService.getMortgageApplications()
             .subscribe(mortgageApplication => 

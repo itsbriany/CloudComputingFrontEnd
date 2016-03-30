@@ -35,6 +35,8 @@
     </div>
     <div *ngIf="currentMortgageApplication && submitted && loading === false && !errorMessage">
         <div class="col-md-12"><h3>MortID: {{mortgageID}}</h3></div>
+        <div class="col-md-12 top-buffer"><a href="http://TODO">EMP Portal</a></div>
+        <div class="col-md-12"><a href="http://TODO">RE Portal</a></div>
         <div class="col-md-12"><button type="button" class="btn btn-success" (click)="reset()">Re-enter Information</button></div>
     </div>
     <div *ngIf="errorMessage && submitted && loading === false">
