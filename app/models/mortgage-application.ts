@@ -1,8 +1,9 @@
-import {Employment} from "./employment";
-import {InsuranceQuote} from "./insurance-quote";
 /**
  * Created by itsbriany on 2016-03-22.
  */
+
+import {Employment} from "./employment";
+import {InsuranceQuote} from "./insurance-quote";
 
 export class MortgageApplication {
     applicantName: string;
