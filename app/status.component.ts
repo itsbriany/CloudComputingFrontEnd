@@ -16,6 +16,7 @@ export class StatusComponent {
     loading = false;
     submitted = false;
     currentMortgageApplication = new MortgageApplication();
+    loadingMessage = "Please wait while your application is being processed...";
     errorMessage: string;
 
     constructor(private mbrService: MbrService) {}
@@ -30,6 +31,7 @@ export class StatusComponent {
                     this.loading = false;
                     this.currentMortgageApplication = mortgageApplication;
                     console.log(JSON.stringify(this.currentMortgageApplication));
+                    console.log(this.currentMortgageApplication.employment.salary || 'Not there');
                 },
                 (error: Error) => {
                     this.loading = false;
@@ -37,4 +39,5 @@ export class StatusComponent {
                 }
             );
     }
+
 }

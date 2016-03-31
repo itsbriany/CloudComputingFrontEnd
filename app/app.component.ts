@@ -25,6 +25,8 @@ import {StatusComponent} from "./status.component";
         <nav>
             <a [routerLink]="['MortgageApplication']">Apply for mortgage</a>
             <a [routerLink]="['Status']">Check your mortgage status</a>
+            <a href="{{REPortal}}">Portal to RE</a>
+            <a href="{{EMPPortal}}">Portal to EMP</a>
         </nav>
         <router-outlet></router-outlet>
     `,
@@ -37,4 +39,6 @@ import {StatusComponent} from "./status.component";
 })
 export class AppComponent {
     title = 'Assignment 5';
+    REPortal = 'http://104.130.11.138:3000';
+    EMPPortal = 'http://23.253.156.134:3000';
 }

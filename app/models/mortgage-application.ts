@@ -17,6 +17,7 @@ export class MortgageApplication {
         this.applicantName = '';
         this.mortgageValue = 0;
         this.houseID = 0;
-        this.mortgageID = '';
+        this.employment = new Employment(0, '');
+        this.insuranceQuote = new InsuranceQuote(0, 0);
     }
 }

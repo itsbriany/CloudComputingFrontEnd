@@ -1,45 +1,43 @@
-<div class="container">
-    <div class="col-md-12"><h2>MBR Form</h2></div>
+    <h2>MBR Form</h2>
     <div [hidden]="submitted">
-        <div class="col-md-12">
-            <form *ngIf="active" (ngSubmit)="onSubmit()" #mbrForm="ngForm">
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" class="form-control" required [(ngModel)]="currentMortgageApplication.applicantName" ngControl="name" #name="ngForm">
-                </div>
-                <!--Pristine means that the user hasn't changed the value since it was displayed in the form-->
-                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                    Name is required
-                </div>
-                <div class="form-group">
-                    <label for="value">Mortgage Value</label>
-                    <input class="form-control" required [(ngModel)]="currentMortgageApplication.mortgageValue" pattern="[0-9]+" ngControl="value" #value="ngForm">
-                </div>
-                <!--Here, value inherits from form which inherits the values valid and pristine-->
-                <div [hidden]="value.valid || value.pristine" class="alert alert-danger">
-                    Mortgage Value is required and must be a positive integer
-                </div>
-                <div class="form-group">
-                    <label for="houseID">House ID</label>
-                    <input class="form-control" required [(ngModel)]="currentMortgageApplication.houseID" pattern="[0-9]+" ngControl="house" #house="ngForm">
-                </div>
-                <div [hidden]="house.valid || house.pristine" class="alert alert-danger">
-                    House ID is required and must be a positive integer
-                </div>
-                <button type="submit" class="btn btn-primary" [disabled]="!mbrForm.form.valid">Submit</button>
-            </form>
-        </div>
+        <form *ngIf="active" (ngSubmit)="onSubmit()" #mbrForm="ngForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" class="form-control" required [(ngModel)]="currentMortgageApplication.applicantName"
+                       ngControl="name" #name="ngForm">
+            </div>
+            <!--Pristine means that the user hasn't changed the value since it was displayed in the form-->
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Name is required
+            </div>
+            <div class="form-group">
+                <label for="value">Mortgage Value</label>
+                <input class="form-control" required [(ngModel)]="currentMortgageApplication.mortgageValue"
+                       pattern="[0-9]+" ngControl="value" #value="ngForm">
+            </div>
+            <!--Here, value inherits from form which inherits the values valid and pristine-->
+            <div [hidden]="value.valid || value.pristine" class="alert alert-danger">
+                Mortgage Value is required and must be a positive integer
+            </div>
+            <div class="form-group">
+                <label for="houseID">House ID</label>
+                <input class="form-control" required [(ngModel)]="currentMortgageApplication.houseID" pattern="[0-9]+"
+                       ngControl="house" #house="ngForm">
+            </div>
+            <div [hidden]="house.valid || house.pristine" class="alert alert-danger">
+                House ID is required and must be a positive integer
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!mbrForm.form.valid">Submit</button>
+        </form>
     </div>
     <div *ngIf="loading && !errorMessage">
-        <div class="col-md-12"><h2>Fetching your data...</h2></div>
+        <h2>Fetching your data...</h2>
     </div>
     <div *ngIf="currentMortgageApplication && submitted && loading === false && !errorMessage">
-        <div class="col-md-12"><h3>MortID: {{mortgageID}}</h3></div>
-        <div class="col-md-12 top-buffer"><a href="{{linkToEMPPortal}}">EMP Portal</a></div>
-        <div class="col-md-12"><button type="button" class="btn btn-success" (click)="reset()">Re-enter Information</button></div>
+        <h3>MortID: <strong>{{mortgageID}}</strong></h3>
+        <button type="button" class="btn btn-success" (click)="reset()">Re-enter Information</button>
     </div>
     <div *ngIf="errorMessage && submitted && loading === false">
-        <div class="col-md-12"><h2 style="color:#880000">{{errorMessage}}</h2></div>
-        <div class="col-md-12"><button type="button" class="btn btn-success" (click)="reset()">Go Back</button></div>
+        <h2 style="color:#880000">{{errorMessage}}</h2>
+        <button type="button" class="btn btn-success" (click)="reset()">Go Back</button>
     </div>
-</div>

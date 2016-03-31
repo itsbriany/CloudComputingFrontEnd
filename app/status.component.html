@@ -20,10 +20,10 @@
     <h3 class="mortgageApplication">Name: {{currentMortgageApplication.applicantName}}</h3>
     <h3 class="mortgageApplication">House ID: {{currentMortgageApplication.houseID}}</h3>
     <h3 class="mortgageApplication">Mortgage Value: {{currentMortgageApplication.mortgageValue}}</h3>
-    <h3 class="employment">Salary: {{currentMortgageApplication.employment.salary}}</h3>
-    <h3 class="employment">Start of employment: {{currentMortgageApplication.employment.start_date}}</h3>
-    <h3 class="insuranceQuote">Deductible value: {{currentMortgageApplication.insuranceQuote.deductibleValue}}</h3>
-    <h3 class="insuranceQuote">Insured value: {{currentMortgageApplication.insuranceQuote.insuredValue}}</h3>
+    <h3 class="employment">Salary: {{currentMortgageApplication.employment.salary || loadingMessage}}</h3>
+    <h3 class="employment">Start of employment: {{currentMortgageApplication.employment.start_date || loadingMessage}}</h3>
+    <h3 class="insuranceQuote">Deductible value: {{currentMortgageApplication.insuranceQuote.deductibleValue || loadingMessage}}</h3>
+    <h3 class="insuranceQuote">Insured value: {{currentMortgageApplication.insuranceQuote.insuredValue || loadingMessage}}</h3>
 </div>
 <div *ngIf="errorMessage && submitted && loading === false">
     <div class="col-md-12"><h2>Whoops!</h2></div>
