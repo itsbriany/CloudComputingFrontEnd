@@ -1,0 +1,31 @@
+<h1>Status</h1>
+<!--MBR document form-->
+<form (ngSubmit)="onSubmit()" #statusForm="ngForm">
+    <label>Enter your mortgage ID</label>
+    <input type="text" class="form-control" required [(ngModel)]="currentMortgageApplication.mortgageID"
+           ngControl="_mortgageID" #_mortgageID="ngForm">
+    <div [hidden]="_mortgageID.valid || _mortgageID.pristine" class="alert alert-danger">
+        Mortgage ID is required
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!statusForm.form.valid">Submit
+    </button>
+</form>
+
+
+<!--Results-->
+<div *ngIf="loading && !errorMessage">
+    <div class="col-md-12"><h2>Fetching your data...</h2></div>
+</div>
+<div *ngIf="currentMortgageApplication && submitted && loading === false && !errorMessage">
+    <h3 class="mortgageApplication">Name: {{currentMortgageApplication.applicantName}}</h3>
+    <h3 class="mortgageApplication">House ID: {{currentMortgageApplication.houseID}}</h3>
+    <h3 class="mortgageApplication">Mortgage Value: {{currentMortgageApplication.mortgageValue}}</h3>
+    <h3 class="employment">Salary: {{currentMortgageApplication.employment.salary}}</h3>
+    <h3 class="employment">Start of employment: {{currentMortgageApplication.employment.start_date}}</h3>
+    <h3 class="insuranceQuote">Deductible value: {{currentMortgageApplication.insuranceQuote.deductibleValue}}</h3>
+    <h3 class="insuranceQuote">Insured value: {{currentMortgageApplication.insuranceQuote.insuredValue}}</h3>
+</div>
+<div *ngIf="errorMessage && submitted && loading === false">
+    <div class="col-md-12"><h2>Whoops!</h2></div>
+    <div class="col-md-12"><h2 style="color:#880000">{{errorMessage}}</h2></div>
+</div>

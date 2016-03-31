@@ -13,18 +13,18 @@
                 </div>
                 <div class="form-group">
                     <label for="value">Mortgage Value</label>
-                    <input type="text" class="form-control" required [(ngModel)]="currentMortgageApplication.mortgageValue" ngControl="value" #value="ngForm">
+                    <input class="form-control" required [(ngModel)]="currentMortgageApplication.mortgageValue" pattern="[0-9]+" ngControl="value" #value="ngForm">
                 </div>
                 <!--Here, value inherits from form which inherits the values valid and pristine-->
                 <div [hidden]="value.valid || value.pristine" class="alert alert-danger">
-                    Mortgage Value is required
+                    Mortgage Value is required and must be a positive integer
                 </div>
                 <div class="form-group">
                     <label for="houseID">House ID</label>
-                    <input type="text" class="form-control" required [(ngModel)]="currentMortgageApplication.houseID" ngControl="house" #house="ngForm">
+                    <input class="form-control" required [(ngModel)]="currentMortgageApplication.houseID" pattern="[0-9]+" ngControl="house" #house="ngForm">
                 </div>
                 <div [hidden]="house.valid || house.pristine" class="alert alert-danger">
-                    House ID is required
+                    House ID is required and must be a positive integer
                 </div>
                 <button type="submit" class="btn btn-primary" [disabled]="!mbrForm.form.valid">Submit</button>
             </form>
@@ -35,8 +35,7 @@
     </div>
     <div *ngIf="currentMortgageApplication && submitted && loading === false && !errorMessage">
         <div class="col-md-12"><h3>MortID: {{mortgageID}}</h3></div>
-        <div class="col-md-12 top-buffer"><a href="http://TODO">EMP Portal</a></div>
-        <div class="col-md-12"><a href="http://TODO">RE Portal</a></div>
+        <div class="col-md-12 top-buffer"><a href="{{linkToEMPPortal}}">EMP Portal</a></div>
         <div class="col-md-12"><button type="button" class="btn btn-success" (click)="reset()">Re-enter Information</button></div>
     </div>
     <div *ngIf="errorMessage && submitted && loading === false">

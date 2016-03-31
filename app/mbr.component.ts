@@ -4,8 +4,7 @@ import {MbrService} from "./services/mbr-service";
 
 @Component({
     selector: 'mbr-form',
-    templateUrl: 'app/mbr.component.html',
-    providers: [MbrService]
+    templateUrl: 'app/mbr.component.html'
 })
 export class MbrComponent {
     active = true;
@@ -14,6 +13,7 @@ export class MbrComponent {
     currentMortgageApplication = new MortgageApplication();
     errorMessage: string;
     mortgageID: string;
+    linkToEMPPortal = "http://ec2-54-186-177-165.us-west-2.compute.amazonaws.com:3000/";
 
     constructor(private mbrService: MbrService) { }
 
@@ -31,7 +31,7 @@ export class MbrComponent {
     private getMortgageApplicantNames() {
         this.mbrService.getMortgageApplicantNames()
             .subscribe(
-                applicantNames => console.log(`Got ApplicantName: ${JSON.stringify(applicantNames)}`,
+                applicantNames => console.log(`Got ApplicantNames: ${JSON.stringify(applicantNames)}`,
                 error => this.onReceiveMortgageApplicationError(error)
                 ));
     }

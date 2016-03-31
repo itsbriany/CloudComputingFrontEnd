@@ -22,7 +22,7 @@ export class MbrService {
         return this.http.get(this.mortgageApplicationUrl)
             .map(res => <MortgageApplication[]> res.json()) // Map the data from each incoming response to the subscription
             .do(data => console.log(`Data: ${data}`)) // You can check the data that was previously mapped with do
-            .catch(this.handleError);  // Catch the error.
+            .catch(MbrService.handleError);  // Catch the error.
     }
 
     getMortgageApplicantNames() {
@@ -30,21 +30,28 @@ export class MbrService {
             .flatMap(res => {
                 let mortgageApplications = Observable.fromArray(res.json());
                 return this.getMortgageApplication(mortgageApplications);
-            })
-            .catch(err => this.handleError(err));
+            });
     }
-    
+
+    getMortgageApplicationById(mortgageID: string): Observable<MortgageApplication> {
+        let getMortgageApplicationUrl = `${this.mortgageApplicationUrl}/${mortgageID}`;
+        return this.http.get(getMortgageApplicationUrl)
+            .map(res => res.json())
+            .catch(err => MbrService.handleError(err));
+    }
+
+    // FlatMap is like map, except that is must return an Observable of Observables to flatten
+
+    // Not the most efficient way to solve the problem, but this was done for the sake
+    // of learning observables and chaining HTTP requests
     getMortgageApplication(mortgageApplications: Observable<MortgageApplication>) {
         return mortgageApplications.flatMap(mortgageApplication => {
-            let mortgageApplicationbyIdUrl = `${this.mortgageApplicationUrl}/${mortgageApplication.mortgageID}`;
-            return this.http.get(mortgageApplicationbyIdUrl)
-                .map(res => {
-                    let mappedMortgageApplication = <MortgageApplication> res.json();
-                    return mappedMortgageApplication.applicantName;
-                })
-                .catch(err => this.handleError(err));
-        });
-
+            return this.getMortgageApplicationById(mortgageApplication.mortgageID);
+        })
+        .reduce((acc, curr: MortgageApplication) => {
+            acc.push(curr.applicantName);
+            return acc;
+        },[]);
     }
     
     addMortgageApplication(mortgageApplication: MortgageApplication): Observable<MortgageApplication> {
@@ -55,10 +62,10 @@ export class MbrService {
         return this.http.post(this.mortgageApplicationUrl, body, options)
             .map(res => <MortgageApplication> res.json())
             .do(data => console.log(`Mapped data: ${JSON.stringify(data)}`))
-            .catch(this.handleError);
+            .catch(MbrService.handleError);
     }
 
-    private handleError (error: Response) {
+    private static handleError (error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure
         // instead of just logging it to the console
         console.error(error);
